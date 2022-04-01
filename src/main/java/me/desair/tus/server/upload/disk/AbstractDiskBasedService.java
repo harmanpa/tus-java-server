@@ -25,11 +25,11 @@ public class AbstractDiskBasedService {
         this.storagePath = Paths.get(path);
     }
 
-    protected Path getStoragePath() {
+    public Path getStoragePath() {
         return storagePath;
     }
 
-    protected Path getPathInStorageDirectory(UploadId id) {
+    public Path getPathInStorageDirectory(UploadId id) {
         if (!Files.exists(storagePath)) {
             init();
         }

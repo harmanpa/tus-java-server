@@ -310,11 +310,11 @@ public class DiskStorageService extends AbstractDiskBasedService implements Uplo
         return uploads;
     }
 
-    private Path getBytesPath(UploadId id) throws UploadNotFoundException {
+    public Path getBytesPath(UploadId id) throws UploadNotFoundException {
         return getPathInUploadDir(id, DATA_FILE);
     }
 
-    private Path getInfoPath(UploadId id) throws UploadNotFoundException {
+    public Path getInfoPath(UploadId id) throws UploadNotFoundException {
         return getPathInUploadDir(id, INFO_FILE);
     }
 
@@ -322,7 +322,7 @@ public class DiskStorageService extends AbstractDiskBasedService implements Uplo
         return Files.createDirectories(getPathInStorageDirectory(id));
     }
 
-    private Path getPathInUploadDir(UploadId id, String fileName) throws UploadNotFoundException {
+    public Path getPathInUploadDir(UploadId id, String fileName) throws UploadNotFoundException {
         //Get the upload directory
         Path uploadDir = getPathInStorageDirectory(id);
         if (uploadDir != null && Files.exists(uploadDir)) {

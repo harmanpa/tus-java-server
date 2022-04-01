@@ -417,12 +417,14 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>nexus-tdsj</id>
+            <name>tdsj Snapshot</name>
+            <url>https://nexus.elanbase.com/repository/tdsj-snapshot/</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>nexus-tdsj</id>
+            <name>tdsj releases</name>
+            <url>https://nexus.elanbase.com/repository/tdsj-release/</url>
         </repository>
     </distributionManagement>
 
