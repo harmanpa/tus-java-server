@@ -50,7 +50,7 @@ public class CreationPostRequestHandler extends AbstractRequestHandler {
                 info.getId(), info.getCreationTimestamp(), info.getCreatorIpAddresses(), url);
     }
 
-    private UploadInfo buildUploadInfo(HttpServletRequest servletRequest) {
+    public UploadInfo buildUploadInfo(HttpServletRequest servletRequest) {
         UploadInfo info = new UploadInfo(servletRequest);
 
         Long length = Utils.getLongHeader(servletRequest, HttpHeader.UPLOAD_LENGTH);
