@@ -5,7 +5,7 @@ import org.apache.commons.codec.Charsets;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -318,7 +318,7 @@ public class UploadInfo implements Serializable {
     /**
      * Try to guess the filename of the uploaded data. If we cannot guess the name
      * we fall back to the ID.
-     * <p/>
+     *
      * NOTE: This is only a guess, there are no guarantees that the return value is correct
      *
      * @return A potential file name
@@ -336,7 +336,7 @@ public class UploadInfo implements Serializable {
 
     /**
      * Try to guess the mime-type of the uploaded data.
-     * <p/>
+     *
      * NOTE: This is only a guess, there are no guarantees that the return value is correct
      *
      * @return A potential file name
