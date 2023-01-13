@@ -6,15 +6,15 @@ import static org.junit.Assert.fail;
 
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
 import me.desair.tus.server.exception.InvalidUploadLengthException;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 /**
- * The request MUST include one of the following headers:
- * a) Upload-Length to indicate the size of an entire upload in bytes.
- * b) Upload-Defer-Length: 1 if upload size is not known at the time.
+ * The request MUST include one of the following headers: a) Upload-Length to
+ * indicate the size of an entire upload in bytes. b) Upload-Defer-Length: 1 if
+ * upload size is not known at the time.
  */
 public class UploadDeferLengthValidatorTest {
 

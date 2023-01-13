@@ -33,8 +33,8 @@ public class ITTusFileUploadServiceCached extends ITTusFileUploadService {
         UploadStorageService uploadStorageService = new DiskStorageService(path);
         UploadLockingService uploadLockingService = new DiskLockingService(path);
 
-        ThreadLocalCachedStorageAndLockingService service2 =
-                new ThreadLocalCachedStorageAndLockingService(
+        ThreadLocalCachedStorageAndLockingService service2
+                = new ThreadLocalCachedStorageAndLockingService(
                         uploadStorageService,
                         uploadLockingService);
 
@@ -67,8 +67,8 @@ public class ITTusFileUploadServiceCached extends ITTusFileUploadService {
         assertResponseHeaderNotBlank(HttpHeader.UPLOAD_EXPIRES);
         assertResponseStatus(HttpServletResponse.SC_CREATED);
 
-        String location = UPLOAD_URI +
-                StringUtils.substringAfter(servletResponse.getHeader(HttpHeader.LOCATION), UPLOAD_URI);
+        String location = UPLOAD_URI
+                + StringUtils.substringAfter(servletResponse.getHeader(HttpHeader.LOCATION), UPLOAD_URI);
 
         //Upload bytes
         reset();

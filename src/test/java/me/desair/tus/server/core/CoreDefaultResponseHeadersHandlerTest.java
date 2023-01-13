@@ -5,13 +5,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
+import me.desair.tus.server.MockHttpServletResponse;
 import me.desair.tus.server.TusFileUploadService;
 import me.desair.tus.server.util.TusServletRequest;
 import me.desair.tus.server.util.TusServletResponse;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 public class CoreDefaultResponseHeadersHandlerTest {
 

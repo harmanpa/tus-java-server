@@ -15,6 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
+import me.desair.tus.server.MockHttpServletResponse;
 import me.desair.tus.server.exception.UploadNotFoundException;
 import me.desair.tus.server.upload.UploadId;
 import me.desair.tus.server.upload.UploadInfo;
@@ -26,8 +28,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class CreationPatchRequestHandlerTest {
@@ -60,7 +60,6 @@ public class CreationPatchRequestHandlerTest {
         assertThat(handler.supports(null), is(false));
     }
 
-
     @Test
     public void processWithLengthAndHeader() throws Exception {
         UploadInfo info = new UploadInfo();
@@ -84,7 +83,6 @@ public class CreationPatchRequestHandlerTest {
         when(uploadStorageService.getUploadInfo(nullable(String.class), nullable(String.class))).thenReturn(info);
 
         //servletRequest.addHeader(HttpHeader.UPLOAD_LENGTH, 10L);
-
         handler.process(HttpMethod.HEAD, new TusServletRequest(servletRequest),
                 new TusServletResponse(servletResponse), uploadStorageService, null);
 
@@ -115,7 +113,6 @@ public class CreationPatchRequestHandlerTest {
         when(uploadStorageService.getUploadInfo(nullable(String.class), nullable(String.class))).thenReturn(info);
 
         //servletRequest.addHeader(HttpHeader.UPLOAD_LENGTH, 10L);
-
         handler.process(HttpMethod.HEAD, new TusServletRequest(servletRequest),
                 new TusServletResponse(servletResponse), uploadStorageService, null);
 

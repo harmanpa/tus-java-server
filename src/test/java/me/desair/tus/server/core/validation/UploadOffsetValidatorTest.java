@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
 import me.desair.tus.server.exception.UploadOffsetMismatchException;
 import me.desair.tus.server.upload.UploadInfo;
 import me.desair.tus.server.upload.UploadStorageService;
@@ -16,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class UploadOffsetValidatorTest {
@@ -111,7 +111,6 @@ public class UploadOffsetValidatorTest {
 
         //We don't set a content length header
         //servletRequest.addHeader(HttpHeader.UPLOAD_OFFSET, 3L);
-
         //When we validate the request
         validator.validate(HttpMethod.PATCH, servletRequest, uploadStorageService, null);
 

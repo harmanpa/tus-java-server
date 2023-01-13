@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import me.desair.tus.server.AbstractTusExtensionIntegrationTest;
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
+import me.desair.tus.server.MockHttpServletResponse;
 import me.desair.tus.server.exception.InvalidUploadLengthException;
 import me.desair.tus.server.exception.MaxUploadLengthExceededException;
 import me.desair.tus.server.exception.PostOnInvalidRequestURIException;
@@ -26,8 +28,6 @@ import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
 
@@ -52,16 +52,16 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
         when(uploadStorageService.getUploadURI()).thenReturn(UPLOAD_URI);
         when(uploadStorageService.create(ArgumentMatchers.any(UploadInfo.class), nullable(String.class))).then(
                 new Answer<UploadInfo>() {
-                    @Override
-                    public UploadInfo answer(InvocationOnMock invocation) throws Throwable {
-                        UploadInfo upload = invocation.getArgument(0);
-                        upload.setId(id);
+            @Override
+            public UploadInfo answer(InvocationOnMock invocation) throws Throwable {
+                UploadInfo upload = invocation.getArgument(0);
+                upload.setId(id);
 
-                        when(uploadStorageService.getUploadInfo(UPLOAD_URL + id.toString(),
-                                (String) invocation.getArgument(1))).thenReturn(upload);
-                        return upload;
-                    }
-                });
+                when(uploadStorageService.getUploadInfo(UPLOAD_URL + id.toString(),
+                        (String) invocation.getArgument(1))).thenReturn(upload);
+                return upload;
+            }
+        });
     }
 
     @Test
@@ -214,16 +214,16 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
         when(uploadStorageService.getUploadURI()).thenReturn("/submission/([a-z0-9]+)/files/upload");
         when(uploadStorageService.create(ArgumentMatchers.any(UploadInfo.class), nullable(String.class))).then(
                 new Answer<UploadInfo>() {
-                    @Override
-                    public UploadInfo answer(InvocationOnMock invocation) throws Throwable {
-                        UploadInfo upload = invocation.getArgument(0);
-                        upload.setId(id);
+            @Override
+            public UploadInfo answer(InvocationOnMock invocation) throws Throwable {
+                UploadInfo upload = invocation.getArgument(0);
+                upload.setId(id);
 
-                        when(uploadStorageService.getUploadInfo("/submission/0ae5f8vv4s8c/files/upload/"
-                                        + id.toString(), (String) invocation.getArgument(1))).thenReturn(upload);
-                        return upload;
-                    }
-                });
+                when(uploadStorageService.getUploadInfo("/submission/0ae5f8vv4s8c/files/upload/"
+                        + id.toString(), (String) invocation.getArgument(1))).thenReturn(upload);
+                return upload;
+            }
+        });
 
         //Create upload
         servletRequest.setRequestURI("/submission/0ae5f8vv4s8c/files/upload");
@@ -252,16 +252,16 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
         when(uploadStorageService.getUploadURI()).thenReturn("/submission/([a-z0-9]+)/files/upload");
         when(uploadStorageService.create(ArgumentMatchers.any(UploadInfo.class), nullable(String.class))).then(
                 new Answer<UploadInfo>() {
-                    @Override
-                    public UploadInfo answer(InvocationOnMock invocation) throws Throwable {
-                        UploadInfo upload = invocation.getArgument(0);
-                        upload.setId(id);
+            @Override
+            public UploadInfo answer(InvocationOnMock invocation) throws Throwable {
+                UploadInfo upload = invocation.getArgument(0);
+                upload.setId(id);
 
-                        when(uploadStorageService.getUploadInfo("/submission/0ae5f8vv4s8c/files/upload/"
-                                        + id.toString(), (String) invocation.getArgument(1))).thenReturn(upload);
-                        return upload;
-                    }
-                });
+                when(uploadStorageService.getUploadInfo("/submission/0ae5f8vv4s8c/files/upload/"
+                        + id.toString(), (String) invocation.getArgument(1))).thenReturn(upload);
+                return upload;
+            }
+        });
 
         //Create upload
         servletRequest.setRequestURI("/submission/a+b/files/upload");

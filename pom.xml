@@ -16,8 +16,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -58,7 +58,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>6.0.2</version>
+            <version>5.3.24</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.3.24</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -218,7 +224,7 @@
             <id>skiptests</id>
             <activation>
                 <!-- This profile should be active at all times, unless the user
-                     specifies a different value for "maven.test.skip" -->
+                specifies a different value for "maven.test.skip" -->
                 <property>
                     <name>skipTests</name>
                     <value>true</value>
@@ -351,7 +357,7 @@
             <build>
                 <plugins>
                     <!-- Configure Nexus plugin for new releases via Sonatype.
-                         See: http://central.sonatype.org/pages/apache-maven.html -->
+                    See: http://central.sonatype.org/pages/apache-maven.html -->
                     <!-- For new releases, generate Source JAR files -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -367,21 +373,21 @@
                         </executions>
                     </plugin>
                     <!-- For new releases, generate JavaDocs -->
-<!--                    <plugin>-->
-<!--                        <groupId>org.apache.maven.plugins</groupId>-->
-<!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                        <version>3.4.1</version>-->
-<!--                        <executions>-->
-<!--                            <execution>-->
-<!--                                <id>attach-javadocs</id>-->
-<!--                                <goals>-->
-<!--                                    <goal>aggregate-jar</goal>-->
-<!--                                </goals>-->
-<!--                            </execution>-->
-<!--                        </executions>-->
-<!--                    </plugin>-->
+                    <!--                    <plugin>-->
+                    <!--                        <groupId>org.apache.maven.plugins</groupId>-->
+                    <!--                        <artifactId>maven-javadoc-plugin</artifactId>-->
+                    <!--                        <version>3.4.1</version>-->
+                    <!--                        <executions>-->
+                    <!--                            <execution>-->
+                    <!--                                <id>attach-javadocs</id>-->
+                    <!--                                <goals>-->
+                    <!--                                    <goal>aggregate-jar</goal>-->
+                    <!--                                </goals>-->
+                    <!--                            </execution>-->
+                    <!--                        </executions>-->
+                    <!--                    </plugin>-->
                     <!-- Sign any new releases via GPG.
-                         NOTE: you may optionally specify the "gpg.passphrase" in your settings.xml -->
+                    NOTE: you may optionally specify the "gpg.passphrase" in your settings.xml -->
                 </plugins>
             </build>
         </profile>

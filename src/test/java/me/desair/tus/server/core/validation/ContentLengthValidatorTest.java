@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
 import me.desair.tus.server.exception.InvalidContentLengthException;
 import me.desair.tus.server.upload.UploadInfo;
 import me.desair.tus.server.upload.UploadStorageService;
@@ -16,7 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
 public class ContentLengthValidatorTest {
@@ -145,7 +145,6 @@ public class ContentLengthValidatorTest {
 
         //We don't set a content length header
         //servletRequest.addHeader(HttpHeader.CONTENT_LENGTH, 3L);
-
         //When we validate the request
         try {
             validator.validate(HttpMethod.PATCH, servletRequest, uploadStorageService, null);

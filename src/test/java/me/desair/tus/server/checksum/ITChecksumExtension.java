@@ -8,12 +8,12 @@ import static org.mockito.Mockito.verify;
 import me.desair.tus.server.AbstractTusExtensionIntegrationTest;
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
+import me.desair.tus.server.MockHttpServletResponse;
 import me.desair.tus.server.exception.ChecksumAlgorithmNotSupportedException;
 import me.desair.tus.server.exception.UploadChecksumMismatchException;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 public class ITChecksumExtension extends AbstractTusExtensionIntegrationTest {
 
@@ -45,15 +45,15 @@ public class ITChecksumExtension extends AbstractTusExtensionIntegrationTest {
 
     @Test
     public void testValidChecksumTrailerHeader() throws Exception {
-        String content = "8\r\n" +
-                "Mozilla \r\n" +
-                "A\r\n" +
-                "Developer \r\n" +
-                "7\r\n" +
-                "Network\r\n" +
-                "0\r\n" +
-                "Upload-Checksum: sha1 zYR9iS5Rya+WoH1fEyfKqqdPWWE=\r\n" +
-                "\r\n";
+        String content = "8\r\n"
+                + "Mozilla \r\n"
+                + "A\r\n"
+                + "Developer \r\n"
+                + "7\r\n"
+                + "Network\r\n"
+                + "0\r\n"
+                + "Upload-Checksum: sha1 zYR9iS5Rya+WoH1fEyfKqqdPWWE=\r\n"
+                + "\r\n";
 
         servletRequest.addHeader(HttpHeader.TRANSFER_ENCODING, "chunked");
         servletRequest.setContent(content.getBytes());
@@ -79,15 +79,15 @@ public class ITChecksumExtension extends AbstractTusExtensionIntegrationTest {
 
     @Test(expected = UploadChecksumMismatchException.class)
     public void testInvalidChecksumTrailerHeader() throws Exception {
-        String content = "8\r\n" +
-                "Mozilla \r\n" +
-                "A\r\n" +
-                "Developer \r\n" +
-                "7\r\n" +
-                "Network\r\n" +
-                "0\r\n" +
-                "Upload-Checksum: sha1 zYR9iS5Rya+WoH1fEyfKqqdPWW=\r\n" +
-                "\r\n";
+        String content = "8\r\n"
+                + "Mozilla \r\n"
+                + "A\r\n"
+                + "Developer \r\n"
+                + "7\r\n"
+                + "Network\r\n"
+                + "0\r\n"
+                + "Upload-Checksum: sha1 zYR9iS5Rya+WoH1fEyfKqqdPWW=\r\n"
+                + "\r\n";
 
         servletRequest.addHeader(HttpHeader.TRANSFER_ENCODING, "chunked");
         servletRequest.setContent(content.getBytes());

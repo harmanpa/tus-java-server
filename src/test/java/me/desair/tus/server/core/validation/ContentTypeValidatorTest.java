@@ -6,11 +6,10 @@ import static org.junit.Assert.fail;
 
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
 import me.desair.tus.server.exception.InvalidContentTypeException;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-
 
 public class ContentTypeValidatorTest {
 

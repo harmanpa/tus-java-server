@@ -11,8 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
- * Class that contains all metadata on an upload process. This class also holds the metadata provided by the client
- * when creating the upload.
+ * Class that contains all metadata on an upload process. This class also holds
+ * the metadata provided by the client when creating the upload.
  */
 public class UploadInfo implements Serializable {
 
@@ -44,7 +44,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Constructor to use if the upload is created using an HTTP request (which is usually the case)
+     * Constructor to use if the upload is created using an HTTP request (which
+     * is usually the case)
      *
      * @param servletRequest The HTTP request that creates the new upload
      */
@@ -54,8 +55,9 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * The current byte offset of the bytes that already have been stored for this upload on the server.
-     * The offset is the position where the next newly received byte should be stored. This index is zero-based.
+     * The current byte offset of the bytes that already have been stored for
+     * this upload on the server. The offset is the position where the next
+     * newly received byte should be stored. This index is zero-based.
      *
      * @return The offset where the next new byte will be written
      */
@@ -64,7 +66,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Set the position where the next newly received byte should be stored. This index is zero-based.
+     * Set the position where the next newly received byte should be stored.
+     * This index is zero-based.
      *
      * @param offset The offset where the next new byte should be written
      */
@@ -73,26 +76,33 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the encoded Tus metadata string as it was provided by the Tus client at creation of the upload.
-     * The encoded metadata string consists of one or more comma-separated key-value pairs where the key is
-     * ASCII encoded and the value Base64 encoded. See https://tus.io/protocols/resumable-upload.html#upload-metadata
+     * Get the encoded Tus metadata string as it was provided by the Tus client
+     * at creation of the upload. The encoded metadata string consists of one or
+     * more comma-separated key-value pairs where the key is ASCII encoded and
+     * the value Base64 encoded. See
+     * https://tus.io/protocols/resumable-upload.html#upload-metadata
      *
      * @return The encoded metadata string as received from the client
      */
     public String getEncodedMetadata() {
         StringBuffer result = new StringBuffer();
         for (Map.Entry<String, String> entry : this.metadata.entrySet()) {
-            if (StringUtils.isNotBlank(entry.getKey()) && StringUtils.isNotBlank(entry.getValue())) {
-                result.append(",").append(entry.getKey()).append(" ").append(Base64.encodeBase64String(entry.getValue().trim().getBytes(StandardCharsets.UTF_8)));
+            if (StringUtils.isNotBlank(entry.getKey())) {
+                result.append(",").append(entry.getKey());
+                if (entry.getValue() != null && StringUtils.isNotBlank(entry.getValue())) {
+                    result.append(" ").append(Base64.encodeBase64String(entry.getValue().trim().getBytes(StandardCharsets.UTF_8)));
+                }
             }
         }
-        return result.substring(1);
+        return result.length() > 0 ? result.substring(1) : null;
     }
 
     /**
-     * Set the encoded Tus metadata string as it was provided by the Tus client at creation of the upload.
-     * The encoded metadata string consists of one or more comma-separated key-value pairs where the key is
-     * ASCII encoded and the value Base64 encoded. See https://tus.io/protocols/resumable-upload.html#upload-metadata
+     * Set the encoded Tus metadata string as it was provided by the Tus client
+     * at creation of the upload. The encoded metadata string consists of one or
+     * more comma-separated key-value pairs where the key is ASCII encoded and
+     * the value Base64 encoded. See
+     * https://tus.io/protocols/resumable-upload.html#upload-metadata
      */
     public void setEncodedMetadata(String encodedMetadata) {
         for (String valuePair : splitToArray(encodedMetadata, ",")) {
@@ -117,10 +127,12 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the decoded metadata map provided by the client based on the encoded Tus metadata string received on
-     * creation of the upload. The encoded metadata string consists of one or more comma-separated key-value pairs
-     * where the key is ASCII encoded and the value Base64 encoded. The key and value MUST be separated by a space.
-     * See https://tus.io/protocols/resumable-upload.html#upload-metadata
+     * Get the decoded metadata map provided by the client based on the encoded
+     * Tus metadata string received on creation of the upload. The encoded
+     * metadata string consists of one or more comma-separated key-value pairs
+     * where the key is ASCII encoded and the value Base64 encoded. The key and
+     * value MUST be separated by a space. See
+     * https://tus.io/protocols/resumable-upload.html#upload-metadata
      *
      * @return The encoded metadata string as received from the client
      */
@@ -138,8 +150,9 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the total length of the byte array that the client wants to upload. This value is provided by the client
-     * when creating the upload (POST) or when uploading a new set of bytes (PATCH).
+     * Get the total length of the byte array that the client wants to upload.
+     * This value is provided by the client when creating the upload (POST) or
+     * when uploading a new set of bytes (PATCH).
      *
      * @return The number of bytes that the client specified he will upload
      */
@@ -148,10 +161,12 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Set the total length of the byte array that the client wants to upload. The client can provided this value
-     * when creating the upload (POST) or when uploading a new set of bytes (PATCH).
+     * Set the total length of the byte array that the client wants to upload.
+     * The client can provided this value when creating the upload (POST) or
+     * when uploading a new set of bytes (PATCH).
      *
-     * @param length The number of bytes that the client specified he will upload
+     * @param length The number of bytes that the client specified he will
+     * upload
      */
     public void setLength(Long length) {
         this.length = (length != null && length > 0 ? length : null);
@@ -167,9 +182,9 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * An upload is still in progress:
-     * - as long as we did not receive information on the total length (see {@link UploadInfo#getLength()})
-     * - the total length does not match the current offset
+     * An upload is still in progress: - as long as we did not receive
+     * information on the total length (see {@link UploadInfo#getLength()}) -
+     * the total length does not match the current offset
      *
      * @return true if the upload is still in progress, false otherwise
      */
@@ -178,8 +193,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Set the unique identifier of this upload process
-     * The unique identifier is represented by a {@link UploadId} instance
+     * Set the unique identifier of this upload process The unique identifier is
+     * represented by a {@link UploadId} instance
      *
      * @param id The unique identifier to use
      */
@@ -188,8 +203,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the unique identifier of this upload process
-     * The unique identifier is represented by a {@link UploadId} instance
+     * Get the unique identifier of this upload process The unique identifier is
+     * represented by a {@link UploadId} instance
      *
      * @return The unique upload identifier of this upload
      */
@@ -198,9 +213,10 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Set the owner key for this upload.
-     * This key uniquely identifies the owner of the uploaded bytes. The user of this library is free to interpret the
-     * meaning of "owner". This can be a user ID, a company division, a group of users, a tenant...
+     * Set the owner key for this upload. This key uniquely identifies the owner
+     * of the uploaded bytes. The user of this library is free to interpret the
+     * meaning of "owner". This can be a user ID, a company division, a group of
+     * users, a tenant...
      *
      * @param ownerKey The owner key to assign to this upload
      */
@@ -209,9 +225,10 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the owner key for this upload.
-     * This key uniquely identifies the owner of the uploaded bytes. The user of this library is free to interpret the
-     * meaning of "owner". This can be a user ID, a company division, a group of users, a tenant...
+     * Get the owner key for this upload. This key uniquely identifies the owner
+     * of the uploaded bytes. The user of this library is free to interpret the
+     * meaning of "owner". This can be a user ID, a company division, a group of
+     * users, a tenant...
      *
      * @return The unique identifying key of the owner of this upload
      */
@@ -220,7 +237,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Indicates the timestamp after which the upload expires in milliseconds since January 1, 1970, 00:00:00 GMT
+     * Indicates the timestamp after which the upload expires in milliseconds
+     * since January 1, 1970, 00:00:00 GMT
      *
      * @return The expiration timestamp in milliseconds
      */
@@ -229,7 +247,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Calculate the expiration timestamp based on the provided expiration period.
+     * Calculate the expiration timestamp based on the provided expiration
+     * period.
      *
      * @param expirationPeriod The period the upload should remain valid
      */
@@ -238,7 +257,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * The timestamp this upload was created in number of milliseconds since January 1, 1970, 00:00:00 GMT
+     * The timestamp this upload was created in number of milliseconds since
+     * January 1, 1970, 00:00:00 GMT
      *
      * @return Creation timestamp of this upload object
      */
@@ -247,9 +267,10 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the ip-addresses that were involved when this upload was created.
-     * The returned value is a comma-separated list based on the remote address of the request and the
-     * X-Forwareded-For header. The list is constructed as "client, proxy1, proxy2".
+     * Get the ip-addresses that were involved when this upload was created. The
+     * returned value is a comma-separated list based on the remote address of
+     * the request and the X-Forwareded-For header. The list is constructed as
+     * "client, proxy1, proxy2".
      *
      * @return A comma-separated list of ip-addresses
      */
@@ -258,8 +279,9 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Return the type of this upload. An upload can have types specified in {@link UploadType}.
-     * The type of an upload depends on the Tus concatenation extension:
+     * Return the type of this upload. An upload can have types specified in
+     * {@link UploadType}. The type of an upload depends on the Tus
+     * concatenation extension:
      * https://tus.io/protocols/resumable-upload.html#concatenation
      *
      * @return The type of this upload as specified in {@link UploadType}
@@ -269,8 +291,9 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Set the type of this upload. An upload can have types specified in {@link UploadType}.
-     * The type of an upload depends on the Tus concatenation extension:
+     * Set the type of this upload. An upload can have types specified in
+     * {@link UploadType}. The type of an upload depends on the Tus
+     * concatenation extension:
      * https://tus.io/protocols/resumable-upload.html#concatenation
      *
      * @param uploadType The type to set on this upload
@@ -298,16 +321,19 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Set the original value of the "Upload-Concat" HTTP header that was provided by the client
+     * Set the original value of the "Upload-Concat" HTTP header that was
+     * provided by the client
      *
-     * @param uploadConcatHeaderValue The original value of the "Upload-Concat" HTTP header
+     * @param uploadConcatHeaderValue The original value of the "Upload-Concat"
+     * HTTP header
      */
     public void setUploadConcatHeaderValue(String uploadConcatHeaderValue) {
         this.uploadConcatHeaderValue = uploadConcatHeaderValue;
     }
 
     /**
-     * Get the original value of the "Upload-Concat" HTTP header that was provided by the client
+     * Get the original value of the "Upload-Concat" HTTP header that was
+     * provided by the client
      *
      * @return The original value of the "Upload-Concat" HTTP header
      */
@@ -316,10 +342,11 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Try to guess the filename of the uploaded data. If we cannot guess the name
-     * we fall back to the ID.
+     * Try to guess the filename of the uploaded data. If we cannot guess the
+     * name we fall back to the ID.
      *
-     * NOTE: This is only a guess, there are no guarantees that the return value is correct
+     * NOTE: This is only a guess, there are no guarantees that the return value
+     * is correct
      *
      * @return A potential file name
      */
@@ -337,7 +364,8 @@ public class UploadInfo implements Serializable {
     /**
      * Try to guess the mime-type of the uploaded data.
      *
-     * NOTE: This is only a guess, there are no guarantees that the return value is correct
+     * NOTE: This is only a guess, there are no guarantees that the return value
+     * is correct
      *
      * @return A potential file name
      */
@@ -379,7 +407,8 @@ public class UploadInfo implements Serializable {
     }
 
     /**
-     * Get the current time in the number of milliseconds since January 1, 1970, 00:00:00 GMT
+     * Get the current time in the number of milliseconds since January 1, 1970,
+     * 00:00:00 GMT
      */
     protected long getCurrentTime() {
         return System.currentTimeMillis();

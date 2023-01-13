@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import me.desair.tus.server.AbstractTusExtensionIntegrationTest;
 import me.desair.tus.server.HttpHeader;
 import me.desair.tus.server.HttpMethod;
+import me.desair.tus.server.MockHttpServletRequest;
+import me.desair.tus.server.MockHttpServletResponse;
 import me.desair.tus.server.exception.InvalidContentLengthException;
 import me.desair.tus.server.exception.InvalidContentTypeException;
 import me.desair.tus.server.exception.InvalidTusResumableException;
@@ -22,8 +24,6 @@ import me.desair.tus.server.exception.UploadOffsetMismatchException;
 import me.desair.tus.server.upload.UploadInfo;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
 
 public class ITCoreProtocol extends AbstractTusExtensionIntegrationTest {
 
@@ -166,7 +166,6 @@ public class ITCoreProtocol extends AbstractTusExtensionIntegrationTest {
         assertResponseHeader(HttpHeader.TUS_EXTENSION, (String) null);
         assertResponseStatus(HttpServletResponse.SC_NO_CONTENT);
     }
-
 
     @Test
     public void testOptionsIgnoreTusResumable() throws Exception {

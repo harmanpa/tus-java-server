@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.util.EnumSet;
 
 import org.junit.Test;
-import org.springframework.mock.web.MockHttpServletRequest;
 
 public class HttpMethodTest {
 

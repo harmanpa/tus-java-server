@@ -67,7 +67,7 @@ public class DiskStorageServiceTest {
 
     @AfterClass
     public static void destroyDataFolder() throws IOException {
-        FileUtils.deleteDirectory(storagePath.toFile());
+//        FileUtils.deleteDirectory(storagePath.toFile());
     }
 
     @Before
@@ -110,14 +110,14 @@ public class DiskStorageServiceTest {
     public void create() throws Exception {
         UploadInfo info = new UploadInfo();
         info.setLength(10L);
-        info.setEncodedMetadata("Encoded Metadata");
+        info.setEncodedMetadata("Encoded-Metadata");
 
         info = storageService.create(info, null);
 
         assertThat(info.getId(), is(notNullValue()));
         assertThat(info.getOffset(), is(0L));
         assertThat(info.getLength(), is(10L));
-        assertThat(info.getEncodedMetadata(), is("Encoded Metadata"));
+        assertThat(info.getEncodedMetadata(), is("Encoded-Metadata"));
 
         assertTrue(Files.exists(getUploadInfoPath(info.getId())));
     }
@@ -126,7 +126,7 @@ public class DiskStorageServiceTest {
     public void getUploadInfoById() throws Exception {
         UploadInfo info = new UploadInfo();
         info.setLength(10L);
-        info.setEncodedMetadata("Encoded Metadata");
+        info.setEncodedMetadata("Encoded-Metadata");
 
         info = storageService.create(info, "John");
 
@@ -138,7 +138,7 @@ public class DiskStorageServiceTest {
         assertThat(readInfo.getId(), is(info.getId()));
         assertThat(readInfo.getOffset(), is(0L));
         assertThat(readInfo.getLength(), is(10L));
-        assertThat(readInfo.getEncodedMetadata(), is("Encoded Metadata"));
+        assertThat(readInfo.getEncodedMetadata(), is("Encoded-Metadata"));
         assertThat(readInfo.getCreationTimestamp(), is(info.getCreationTimestamp()));
         assertThat(readInfo.getUploadType(), is(info.getUploadType()));
         assertThat(readInfo.getOwnerKey(), is(info.getOwnerKey()));
@@ -154,7 +154,7 @@ public class DiskStorageServiceTest {
     public void getUploadInfoByUrl() throws Exception {
         UploadInfo info = new UploadInfo();
         info.setLength(10L);
-        info.setEncodedMetadata("Encoded Metadata");
+        info.setEncodedMetadata("Encoded-Metadata");
 
         info = storageService.create(info, null);
 
@@ -166,14 +166,14 @@ public class DiskStorageServiceTest {
         assertThat(readInfo.getId(), is(info.getId()));
         assertThat(readInfo.getOffset(), is(0L));
         assertThat(readInfo.getLength(), is(10L));
-        assertThat(readInfo.getEncodedMetadata(), is("Encoded Metadata"));
+        assertThat(readInfo.getEncodedMetadata(), is("Encoded-Metadata"));
     }
 
     @Test
     public void getUploadInfoOtherOwner() throws Exception {
         UploadInfo info = new UploadInfo();
         info.setLength(10L);
-        info.setEncodedMetadata("Encoded Metadata");
+        info.setEncodedMetadata("Encoded-Metadata");
 
         info = storageService.create(info, "foo");
 
@@ -185,7 +185,7 @@ public class DiskStorageServiceTest {
         assertThat(readInfo.getId(), is(info.getId()));
         assertThat(readInfo.getOffset(), is(0L));
         assertThat(readInfo.getLength(), is(10L));
-        assertThat(readInfo.getEncodedMetadata(), is("Encoded Metadata"));
+        assertThat(readInfo.getEncodedMetadata(), is("Encoded-Metadata"));
 
         assertThat(storageService.getUploadInfo(UPLOAD_URL + "/" + info.getId(), "bar"), is(nullValue()));
     }
@@ -194,7 +194,7 @@ public class DiskStorageServiceTest {
     public void update() throws Exception {
         UploadInfo info1 = new UploadInfo();
         info1.setLength(10L);
-        info1.setEncodedMetadata("Encoded Metadata");
+        info1.setEncodedMetadata("Encoded-Metadata");
 
         info1 = storageService.create(info1, null);
 
@@ -204,7 +204,7 @@ public class DiskStorageServiceTest {
         info2.setId(info1.getId());
         info2.setLength(10L);
         info2.setOffset(8L);
-        info2.setEncodedMetadata("Updated Encoded Metadata");
+        info2.setEncodedMetadata("Updated-Encoded-Metadata");
 
         storageService.update(info2);
 
@@ -216,7 +216,7 @@ public class DiskStorageServiceTest {
         assertThat(readInfo.getId(), is(info1.getId()));
         assertThat(readInfo.getOffset(), is(8L));
         assertThat(readInfo.getLength(), is(10L));
-        assertThat(readInfo.getEncodedMetadata(), is("Updated Encoded Metadata"));
+        assertThat(readInfo.getEncodedMetadata(), is("Updated-Encoded-Metadata"));
     }
 
     @Test
@@ -227,7 +227,7 @@ public class DiskStorageServiceTest {
         //Create our upload with the correct length
         UploadInfo info = new UploadInfo();
         info.setLength((long) (part1.getBytes().length + part2.getBytes().length));
-        info.setEncodedMetadata("Encoded Metadata");
+        info.setEncodedMetadata("Encoded-Metadata");
 
         info = storageService.create(info, null);
         assertTrue(Files.exists(getUploadInfoPath(info.getId())));
@@ -241,7 +241,7 @@ public class DiskStorageServiceTest {
         assertThat(readInfo.getId(), is(info.getId()));
         assertThat(readInfo.getOffset(), is((long) part1.getBytes().length));
         assertThat(readInfo.getLength(), is(info.getLength()));
-        assertThat(readInfo.getEncodedMetadata(), is("Encoded Metadata"));
+        assertThat(readInfo.getEncodedMetadata(), is("Encoded-Metadata"));
 
         //Write the second part of the upload
         storageService.append(info, IOUtils.toInputStream(part2, StandardCharsets.UTF_8));
@@ -252,7 +252,7 @@ public class DiskStorageServiceTest {
         assertThat(readInfo.getId(), is(info.getId()));
         assertThat(readInfo.getOffset(), is(info.getLength()));
         assertThat(readInfo.getLength(), is(info.getLength()));
-        assertThat(readInfo.getEncodedMetadata(), is("Encoded Metadata"));
+        assertThat(readInfo.getEncodedMetadata(), is("Encoded-Metadata"));
     }
 
     @Test
