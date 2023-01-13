@@ -616,12 +616,14 @@ public class MockHttpServletResponse implements HttpServletResponse {
 
     @Override
     public void setDateHeader(String name, long value) {
-        setHeaderValue(name, formatDate(value));
+//        setHeaderValue(name, formatDate(value));
+        setHeaderValue(name, Long.toString(value));
     }
 
     @Override
     public void addDateHeader(String name, long value) {
-        addHeaderValue(name, formatDate(value));
+//        addHeaderValue(name, formatDate(value));
+        addHeaderValue(name, Long.toString(value));
     }
 
     public long getDateHeader(String name) {

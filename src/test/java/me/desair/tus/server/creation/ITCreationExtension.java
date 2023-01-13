@@ -150,7 +150,7 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
     public void testPostWithMetadata() throws Exception {
         //Create upload
         servletRequest.addHeader(HttpHeader.UPLOAD_LENGTH, 9);
-        servletRequest.addHeader(HttpHeader.UPLOAD_METADATA, "encoded metadata");
+        servletRequest.addHeader(HttpHeader.UPLOAD_METADATA, "encoded-metadata");
 
         executeCall(HttpMethod.POST, false);
 
@@ -164,7 +164,7 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
         servletResponse = new MockHttpServletResponse();
         executeCall(HttpMethod.HEAD, false);
 
-        assertThat(servletResponse.getHeader(HttpHeader.UPLOAD_METADATA), is("encoded metadata"));
+        assertThat(servletResponse.getHeader(HttpHeader.UPLOAD_METADATA), is("encoded-metadata"));
         assertThat(servletResponse.getHeader(HttpHeader.UPLOAD_DEFER_LENGTH), is(nullValue()));
     }
 
@@ -228,7 +228,7 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
         //Create upload
         servletRequest.setRequestURI("/submission/0ae5f8vv4s8c/files/upload");
         servletRequest.addHeader(HttpHeader.UPLOAD_LENGTH, 9);
-        servletRequest.addHeader(HttpHeader.UPLOAD_METADATA, "submission metadata");
+        servletRequest.addHeader(HttpHeader.UPLOAD_METADATA, "submission-metadata");
 
         executeCall(HttpMethod.POST, false);
 
@@ -242,7 +242,7 @@ public class ITCreationExtension extends AbstractTusExtensionIntegrationTest {
         servletResponse = new MockHttpServletResponse();
         executeCall(HttpMethod.HEAD, false);
 
-        assertThat(servletResponse.getHeader(HttpHeader.UPLOAD_METADATA), is("submission metadata"));
+        assertThat(servletResponse.getHeader(HttpHeader.UPLOAD_METADATA), is("submission-metadata"));
         assertThat(servletResponse.getHeader(HttpHeader.UPLOAD_DEFER_LENGTH), is(nullValue()));
     }
 
